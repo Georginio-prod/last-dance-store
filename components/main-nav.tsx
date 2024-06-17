@@ -38,7 +38,7 @@ const MainNav: React.FC<MainNavProps> = ({
                     {route.label}
                 </Link>
             ))}
-            main
+            
         </nav>
     )
 }
