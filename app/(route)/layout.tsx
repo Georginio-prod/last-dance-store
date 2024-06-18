@@ -1,5 +1,6 @@
 
 import Navbar from "@/components/navbar";
+import ModalProvider from "@/providers/modal-provider";
 import React from "react";
 
 const MarketingLayout=({
@@ -14,6 +15,7 @@ const MarketingLayout=({
             <main className="
                 h-full 
             "> 
+                <ModalProvider/>
                 <Navbar/>
                 {children}
                
