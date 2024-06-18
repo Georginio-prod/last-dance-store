@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
@@ -9,35 +7,41 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const Summary = () => {
-    const searchParams =useSearchParams();
+    const searchParams = useSearchParams();
     const items = useCart((state) => state.items);
     const removeAll = useCart((state) => state.removeAll);
 
-
-    useEffect (() => {
-        if(searchParams.get("Success")){
-            toast.success("Paymemnt Complète");
+    useEffect(() => {
+        if (searchParams.get("success")) {
+            toast.success("Paiement complet");
             removeAll();
         }
 
-        if( searchParams.get("Annueler")) {
-            toast.error("Quelque chose s'est mal passé")
+        if (searchParams.get("canceled")) {
+            toast.error("Quelque chose s'est mal passé");
         }
     }, [searchParams, removeAll]);
 
-    
     const totalPrice = items.reduce((total, item) => {
         return total + Number(item.price);
-    }, 0)
+    }, 0);
 
     const onCheckout = async () => {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-            productIds: items.map((item) => item.id),
-        });
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+                productIds: items.map((item) => item.id),
+            });
 
-        window.location = Response.data.url;
+            window.location = response.data.url;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(`Erreur de réseau: ${error.message}`);
+            } else {
+                toast.error('Une erreur est survenue');
+            }
+        }
+    };
 
-    }
     return (
         <div className="
             mt-8
@@ -64,7 +68,7 @@ const Summary = () => {
                 Vérifier
             </Button>
         </div>
-    )
-}
+    );
+};
 
 export default Summary;
