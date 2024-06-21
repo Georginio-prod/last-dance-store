@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
 import { Button } from "@/components/ui/button";
@@ -12,12 +13,13 @@ interface InfoProps {
 
 const Info: React.FC<InfoProps> = ({ data }) => {
     const cart = useCart();
+    const [quantity, setQuantity] = useState(1);
 
     const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
+        cart.addItem(data, quantity);
+    };
 
-        cart.addItem(data);
-    }
     return (
         <div>
             <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
@@ -29,19 +31,32 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             <hr className="my-4" />
             <div className="flex flex-col gap-y-6">
                 <div className="flex items-center gap-x-4">
-                    <h3 className="font-semibold text-black">Taille:</h3>
-                    <div>
-                        {data?.size?.name}
-                    </div>
+                    <h3 className="font-semibold text-black">Types:</h3>
+                    <div>{data?.size?.name}</div>
                 </div>
                 <div className="flex items-center gap-x-4">
                     <h3 className="font-semibold text-black">Couleur</h3>
-                    <div className="h-6 w-6 rounded-full border border-gray-600"
-                        style={{ backgroundColor: data?.color?.value }}>
-                    </div>
+                    <div
+                        className="h-6 w-6 rounded-full border border-gray-600"
+                        style={{ backgroundColor: data?.color?.value }}
+                    ></div>
                 </div>
             </div>
             <div className="mt-10 flex items-center gap-x-3">
+                <div className="flex items-center gap-x-2">
+                    <label htmlFor="quantity" className="font-semibold text-black">
+                        Quantité:
+                    </label>
+                    <input
+                        type="number"
+                        id="quantity"
+                        name="quantity"
+                        min="1"
+                        value={quantity}
+                        onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                        className="w-16 text-center border border-gray-300 rounded"
+                    />
+                </div>
                 <Button className="flex items-center gap-x-2" onClick={onAddToCart}>
                     Ajouter au Panier
                     <ShoppingCart />
@@ -49,6 +64,6 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Info;
