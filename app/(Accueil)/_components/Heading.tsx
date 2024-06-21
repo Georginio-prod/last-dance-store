@@ -26,7 +26,7 @@ export const Heading = () => {
         <div className="max-w-3xl space-x-4 relative">
             {/* Text content */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl">
-                &quot;Faites passer vos messages commandes via &quot;
+                Faites passer vos messages commandes via 
                 <span className="underline"> Shoppi-M</span>
             </h1>
             {/* eslint-disable-next-line react/no-unescaped-entities */}
