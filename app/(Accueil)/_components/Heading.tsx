@@ -26,7 +26,7 @@ export const Heading = () => {
         <div className="max-w-3xl space-x-4 relative">
             {/* Text content */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl">
-                Faites passer vos messages commandes via 
+                &quot;Faites passer vos messages commandes via &quot;
                 <span className="underline"> Shoppi-M</span>
             </h1>
             {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -38,7 +38,7 @@ export const Heading = () => {
                 mb-4
             ">
                 Shoppi-M est une application web de e-commerce innovante qui révolutionne 
-                votre expérience d'achat en ligne grâce à une interface intuitive et des offres exclusives.<br/>
+                votre expérience  d&apos;achat en ligne grâce à une interface intuitive et des offres exclusives.<br/>
                 Découvrez une vaste sélection de produits à des prix compétitifs, le tout à portée de clic.
             </h4>
 
@@ -54,7 +54,8 @@ export const Heading = () => {
                     className="relative mb-4"
                     style={{ transition: "opacity 0.5s ease-in-out" }}
                 >
-                    Let's go
+                    Let&apos;s go
+
                     <ArrowRight className="h-4 w-4 ml-2"/>
                 </Button>
             )}
